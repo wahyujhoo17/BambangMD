@@ -44,7 +44,7 @@ export async function exportToPDF(
     pagebreak: {
       mode: ["css", "legacy"],
       before: ".page-break-before",
-      after: ".page-break-after", 
+      after: ".page-break-after",
       avoid: ["table", "tr", "img", "pre", ".mermaid"],
     },
   };
@@ -89,8 +89,10 @@ export async function exportToPDF(
     clonedElement.style.boxSizing = "border-box";
 
     // Remove unnecessary spacing and empty elements
-    const emptyElements = clonedElement.querySelectorAll("div:empty, p:empty, span:empty");
-    emptyElements.forEach(el => el.remove());
+    const emptyElements = clonedElement.querySelectorAll(
+      "div:empty, p:empty, span:empty"
+    );
+    emptyElements.forEach((el) => el.remove());
 
     // Process headings for better spacing
     const headings = clonedElement.querySelectorAll("h1, h2, h3, h4, h5, h6");
@@ -121,7 +123,7 @@ export async function exportToPDF(
         svgElement.style.height = "auto";
         svgElement.style.display = "block";
         svgElement.style.margin = "16px auto";
-        
+
         // Prevent page breaks inside diagrams
         (mermaidEl as HTMLElement).style.pageBreakInside = "avoid";
         (mermaidEl as HTMLElement).style.marginTop = "16px";
@@ -144,7 +146,6 @@ export async function exportToPDF(
       (codeBlock as HTMLElement).style.wordBreak = "break-word";
       (codeBlock as HTMLElement).style.pageBreakInside = "avoid";
       (codeBlock as HTMLElement).style.border = "1px solid #e2e8f0";
-    }
     }
 
     // Process tables for better PDF rendering
@@ -193,7 +194,7 @@ export async function exportToPDF(
       (list as HTMLElement).style.marginTop = "8px";
       (list as HTMLElement).style.marginBottom = "16px";
       (list as HTMLElement).style.paddingLeft = "20px";
-      
+
       const items = list.querySelectorAll("li");
       for (const item of Array.from(items)) {
         (item as HTMLElement).style.marginBottom = "4px";
@@ -247,7 +248,6 @@ export async function exportToPDF(
     console.error("PDF Export Error:", error);
     throw new Error("Failed to generate PDF. Please try again.");
   }
-}
 }
 
 export function generateFilename(title: string): string {
